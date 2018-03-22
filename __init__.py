@@ -27,10 +27,6 @@ class CoverageAndConnection(QWidget):
         
         self.setLayout(mainLayout)
         self.show()
-        self.connectBt.clicked.connect(self.connectBtClicked)
-        
-    def connectBtClicked(self):
-        asd=0
         
 if __name__ == '__main__':
     app = QApplication(sys.argv)
