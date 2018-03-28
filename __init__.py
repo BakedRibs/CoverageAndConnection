@@ -28,6 +28,11 @@ class CoverageAndConnection(QWidget):
         self.setLayout(mainLayout)
         self.show()
         
+        self.connectBt.clicked.connect(self.connectBtClicked)
+        
+    def connectBtClicked(self):
+        self.pw.paintStatusChanged(self.sensorNum.value())
+        
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     CAC = CoverageAndConnection()

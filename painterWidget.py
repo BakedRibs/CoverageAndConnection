@@ -17,6 +17,8 @@ class painterWidget(QWidget):
         self.pen = QPen(QColor(0, 0, 0))
         self.painter.setPen(self.pen)
         
+        self.circleNumber = 0
+        
     def paintEvent(self, event):
 
         qp = QPainter()
@@ -25,5 +27,9 @@ class painterWidget(QWidget):
         qp.end()
 
     def paintCircle(self, event, qp):
-        qp.setPen(QColor(0, 0, 0))
-        qp.drawEllipse(100, 100, 20, 20)
+        for i in range(self.circleNumber):
+            qp.setPen(QColor(0, 0, 0))
+            qp.drawEllipse(100, 100, 20, 20)
+        
+    def paintStatusChanged(self, count):
+        self.circleNumber = count
