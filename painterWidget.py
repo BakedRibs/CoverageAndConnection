@@ -1,3 +1,4 @@
+import random
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPalette, QColor, QPainter, QPen
 
@@ -20,7 +21,6 @@ class painterWidget(QWidget):
         self.circleNumber = 0
         
     def paintEvent(self, event):
-
         qp = QPainter()
         qp.begin(self)
         self.paintCircle(event, qp)
@@ -29,7 +29,14 @@ class painterWidget(QWidget):
     def paintCircle(self, event, qp):
         for i in range(self.circleNumber):
             qp.setPen(QColor(0, 0, 0))
-            qp.drawEllipse(100, 100, 20, 20)
+            qp.drawEllipse(self.points[i][0], self.points[i][1], 20, 20)
         
     def paintStatusChanged(self, count):
         self.circleNumber = count
+        self.points = []
+        for i in range(count):
+            point = []
+            point.append(round(random.uniform(0, 500), 2))
+            point.append(round(random.uniform(0, 500), 2))
+            self.points.append(point)
+        self.update()
