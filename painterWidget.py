@@ -29,14 +29,23 @@ class painterWidget(QWidget):
     def paintCircle(self, event, qp):
         for i in range(self.circleNumber):
             qp.setPen(QColor(0, 0, 0))
-            qp.drawEllipse(self.points[i][0], self.points[i][1], 20, 20)
+            qp.drawEllipse(self.points[i][0], self.points[i][1], 50, 50)
         
     def paintStatusChanged(self, count):
         self.circleNumber = count
         self.points = []
+        self.connections = []
         for i in range(count):
             point = []
             point.append(round(random.uniform(0, 500), 2))
             point.append(round(random.uniform(0, 500), 2))
             self.points.append(point)
+        for i in range(count):
+            for j in range(i+1, count):
+                if self.connectToAnother(i, j, 50) == True:
+                    self.connections.append([i, j])
         self.update()
+        
+    def connectToAnother(self, i, j, radius):
+        dis2 = pow((self.points[j][0] - self.points[i][0]), 2) + pow((self.points[j][1]-self.points[i][1]), 2)
+        return dis2 <= pow(radius * 2, 2)
