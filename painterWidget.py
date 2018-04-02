@@ -44,6 +44,8 @@ class painterWidget(QWidget):
             for j in range(i+1, count):
                 if self.connectToAnother(i, j, 50) == True:
                     self.connections.append([i, j])
+        for i in self.connections:
+            pass
         self.update()
         
     def connectToAnother(self, i, j, radius):
