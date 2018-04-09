@@ -15,6 +15,7 @@ class painterWidget(QWidget):
         self.setPalette(pal)                                                                  #设置背景
         
         self.circleNumber = 0
+        self.colorList = []
         
     def paintEvent(self, event):
         #在paintEvent中调用paintCircle
