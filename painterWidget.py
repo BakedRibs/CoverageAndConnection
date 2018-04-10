@@ -1,6 +1,7 @@
 import random
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtGui import QPalette, QColor, QPainter
+from PyQt5.QtGui import QPalette, QColor, QPainter, QBrush
+from PyQt5.QtCore import Qt
 
 class painterWidget(QWidget):
     def __init__(self):
@@ -15,7 +16,6 @@ class painterWidget(QWidget):
         self.setPalette(pal)                                                                  #设置背景
         
         self.circleNumber = 0
-        self.colorList = []
         
     def paintEvent(self, event):
         #在paintEvent中调用paintCircle
@@ -28,8 +28,11 @@ class painterWidget(QWidget):
         #根据self.points中存储的圆的数量和位置，在绘图区域内绘制图形
         #在drawEllipse函数中，100为二倍半径
         for i in range(self.circleNumber):
-            qp.setPen(QColor(0, 0, 0))
-            qp.drawEllipse(self.points[i][0], self.points[i][1], 100, 100)
+            pos = self.differentNumbers.index(self.id[i])                                             #查找根节点，查找根节点在self.differentNumbers中的位置
+            color = self.differentColors[pos]                                                             #根据位置得到对应颜色
+            qp.setPen(QColor(color[0], color[1], color[2]))                                        #使用颜色设置画笔和刷子
+            qp.setBrush(QBrush(QColor(color[0], color[1], color[2]), Qt.SolidPattern))
+            qp.drawEllipse(self.points[i][0], self.points[i][1], 100, 100)                         #绘制图形
         
     def paintStatusChanged(self, count):
         #按钮按下时，执行随机生成圆过程，并通过union_find算法计算其连通性。找到相互连通的节点，并在图中标示出来。
@@ -54,6 +57,21 @@ class painterWidget(QWidget):
         for i in range(count):
             root = self.findRoot(i)                                                             #在所有节点连接完成后，将其self.id修改为其根节点
             self.id[i] = root
+        self.differentColors = []
+        self.differentNumbers = []
+        for i in range(len(self.id)):
+            if self.id[i] not in self.differentNumbers:
+                self.differentNumbers.append(self.id[i])                                  #查找self.id中的所有不同数字
+        for i in range(len(self.differentNumbers)):                                      #对于self.id中的每个不同数字，生成一种随机颜色，也即具有相同根节点的节点颜色相同
+            r = random.randint(0, 255)
+            g = random.randint(0, 255)
+            b = random.randint(0, 255)
+            while [r, g, b] in self.differentColors:                                        #若新生成的颜色与已有颜色相同，则重新生成
+                r = random.randint(0, 255)
+                g = random.randint(0, 255)
+                b = random.randint(0, 255)
+            self.differentColors.append([r, g, b])
+        
         self.update()
         
     def unionRoot(self, p, q):
