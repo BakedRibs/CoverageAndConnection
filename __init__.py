@@ -12,7 +12,7 @@ class CoverageAndConnection(QWidget):
         self.pw = painterWidget()                              #绘图区域
         self.sensorNum = QSpinBox()
         self.sensorNum.setRange(1, 300)                    #节点数量下限为1，上限为300
-        self.sensorNum.setValue(50)                          #默认节点数量为50
+        self.sensorNum.setValue(200)                         #默认节点数量为200
         self.connectBt = QPushButton('生成并连接')
         
         controlLayout = QHBoxLayout()
@@ -27,6 +27,7 @@ class CoverageAndConnection(QWidget):
         
         self.setLayout(mainLayout)
         self.show()
+        self.move(0, 0)
         
         self.connectBt.clicked.connect(self.connectBtClicked)        #按钮按下时，响应事件
         

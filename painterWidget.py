@@ -9,7 +9,7 @@ class painterWidget(QWidget):
         self.Init_UI()
         
     def Init_UI(self):
-        self.setFixedSize(600, 600)                                                        #为了能完整显示每一个圆，而不是截取其一部分，为左右各预留了50
+        self.setFixedSize(1600, 700)                                                        #为了能完整显示每一个圆，而不是截取其一部分，为左右各预留了50
         self.setAutoFillBackground(True)
         pal = QPalette()
         pal.setColor(QPalette.Background, QColor(255, 255, 255))              #设置背景颜色为白色
@@ -43,8 +43,8 @@ class painterWidget(QWidget):
         self.size = []                                                                               #为实现算法最优化，存放树的深度
         for i in range(count):
             point = []
-            point.append(round(random.uniform(0, 500), 2))                           #在0-500范围内随机生成横纵坐标
-            point.append(round(random.uniform(0, 500), 2))
+            point.append(round(random.uniform(0, 1500), 2))                           #在0-500范围内随机生成横纵坐标
+            point.append(round(random.uniform(0, 600), 2))
             self.points.append(point)                                                          #将新点添加到
             self.id.append(i)                                                                      #将每个节点的根节点初始化为其自身
             self.size.append(1)
